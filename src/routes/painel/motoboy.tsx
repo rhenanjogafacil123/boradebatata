@@ -43,7 +43,7 @@ function MotoboyDashboard() {
   const [tab, setTab] = useState<"available" | "active">("available");
   const [available, setAvailable] = useState(seedAvailable);
   const [active, setActive] = useState<Delivery[]>([
-    { id: 1045, store: "Bora de Batata", customer: "Ana Paula", address: "Rua das Acácias, 321", distance: "1,2 km", fee: "R$ 6,50", payment: "Pix", minutes: 8, emoji: "🍔" },
+    { id: 1045, store: "Bora de Batata", customer: "Ana Paula", address: "Rua das Acácias, 321", distance: "1,2 km", fee: "R$ 6,50", payment: "Pix", minutes: 8, image: "/bora-hero.png" },
   ]);
 
   function accept(delivery: Delivery) {
