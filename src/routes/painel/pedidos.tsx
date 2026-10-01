@@ -41,16 +41,16 @@ type Order = {
 };
 
 const initialOrders: Order[] = [
-  { id: 1048, customer: "João Silva", channel: "WhatsApp", items: ["1x Combo Batata Especial", "1x Refrigerante 2L"], payment: "Pix", price: "R$ 52,90", minutes: 2, status: "recebido" },
-  { id: 1049, customer: "Mariana Costa", channel: "iFood", items: ["2x X-Bacon", "1x Molho Cheddar"], payment: "Cartão", price: "R$ 55,80", minutes: 6, status: "recebido" },
-  { id: 1050, customer: "Carlos Ribeiro", channel: "Balcão", items: ["1x Batata Frita Grande", "1x Refrigerante"], payment: "Dinheiro", price: "R$ 28,50", minutes: 8, status: "recebido" },
-  { id: 1045, customer: "Ana Paula", channel: "iFood", items: ["1x X-Tudo", "1x Batata Grande"], payment: "Cartão", price: "R$ 49,90", minutes: 12, status: "preparando" },
-  { id: 1047, customer: "Lucas Mendes", channel: "WhatsApp", items: ["1x Combo Batata", "1x Refrigerante 2L"], payment: "Pix", price: "R$ 37,00", minutes: 15, status: "preparando" },
-  { id: 1051, customer: "Fernanda Lima", channel: "Balcão", items: ["1x Batata Média", "1x Molho Cheddar"], payment: "Dinheiro", price: "R$ 33,50", minutes: 18, status: "preparando" },
-  { id: 1046, customer: "Pedro Santos", channel: "WhatsApp", items: ["1x X-Bacon", "1x Refrigerante 2L"], payment: "Pix", price: "R$ 42,90", minutes: 5, status: "pronto" },
-  { id: 1044, customer: "Juliana Alves", channel: "iFood", items: ["1x Batata Grande", "1x Molho Cheddar"], payment: "Cartão", price: "R$ 31,20", minutes: 8, status: "pronto" },
-  { id: 1042, customer: "Amanda Rocha", channel: "Delivery", items: ["1x X-Tudo", "1x Batata Grande"], payment: "Cartão", price: "R$ 42,90", minutes: 8, status: "entrega", courier: "Matheus Alves" },
-  { id: 1043, customer: "Gabriel Martins", channel: "Delivery", items: ["1x Combo Batata", "1x Refrigerante 2L"], payment: "Pix", price: "R$ 52,00", minutes: 12, status: "entrega", courier: "Rafael Lima" },
+  { id: 1048, customer: "João Silva", channel: "WhatsApp", items: ["1x Carne moída com cheddar • 500g", "1x Refrigerante lata"], payment: "Pix", price: "R$ 52,90", minutes: 2, status: "recebido" },
+  { id: 1049, customer: "Mariana Costa", channel: "iFood", items: ["2x Bacon com cheddar • 300g"], payment: "Cartão", price: "R$ 55,80", minutes: 6, status: "recebido" },
+  { id: 1050, customer: "Carlos Ribeiro", channel: "Balcão", items: ["1x Strogonoff de frango • 500g", "1x Guaracamp"], payment: "Dinheiro", price: "R$ 28,50", minutes: 8, status: "recebido" },
+  { id: 1045, customer: "Ana Paula", channel: "iFood", items: ["1x Pastel com tudo dentro", "1x Refrigerante lata"], payment: "Cartão", price: "R$ 49,90", minutes: 12, status: "preparando" },
+  { id: 1047, customer: "Lucas Mendes", channel: "WhatsApp", items: ["1x Calabresa com cheddar • 500g", "1x Refrigerante lata"], payment: "Pix", price: "R$ 37,00", minutes: 15, status: "preparando" },
+  { id: 1051, customer: "Fernanda Lima", channel: "Balcão", items: ["1x Bacon com catupiry • 300g"], payment: "Dinheiro", price: "R$ 33,50", minutes: 18, status: "preparando" },
+  { id: 1046, customer: "Pedro Santos", channel: "WhatsApp", items: ["1x Carne moída com catupiry • 500g", "1x Guaracamp"], payment: "Pix", price: "R$ 42,90", minutes: 5, status: "pronto" },
+  { id: 1044, customer: "Juliana Alves", channel: "iFood", items: ["1x Calabresa com catupiry • 500g"], payment: "Cartão", price: "R$ 31,20", minutes: 8, status: "pronto" },
+  { id: 1042, customer: "Amanda Rocha", channel: "Delivery", items: ["1x Pastel montável", "1x Refrigerante lata"], payment: "Cartão", price: "R$ 42,90", minutes: 8, status: "entrega", courier: "Matheus Alves" },
+  { id: 1043, customer: "Gabriel Martins", channel: "Delivery", items: ["1x Strogonoff de frango • 500g", "1x Refrigerante lata"], payment: "Pix", price: "R$ 52,00", minutes: 12, status: "entrega", courier: "Rafael Lima" },
 ];
 
 const columns: { status: Status; title: string; dot: string; action: string; button: string }[] = [
@@ -67,7 +67,7 @@ const couriers = [
   { name: "Bruno Costa", status: "Disponível", deliveries: "6 entregas hoje", tone: "green" },
 ];
 
-const soldOutSeed = ["Batata Frita Grande", "X-Calabresa", "Molho Cheddar"];
+const soldOutSeed = ["Bacon com cheddar • 500g", "Pastel com tudo dentro", "Guaracamp"];
 
 function OrdersDashboard() {
   const [orders, setOrders] = useState(initialOrders);
@@ -263,10 +263,10 @@ function OrdersDashboard() {
               <span className={"mr-2 h-2.5 w-2.5 rounded-full " + column.dot} />
               <h2 className="text-sm font-extrabold">{column.title}</h2>
               <span className="ml-1 text-xs font-bold text-slate-400">({column.orders.length})</span>
-              <span className="ml-auto text-[10px] font-bold text-slate-300">mais antigos primeiro</span>
+              <span className="ml-auto text-[10px] font-bold text-slate-300">Mais antigos</span>
             </div>
 
-            <div className="min-h-[470px] space-y-3 bg-slate-50/65 p-3">
+            <div className="max-h-[620px] min-h-[470px] space-y-3 overflow-y-auto bg-slate-50/65 p-3">
               {column.orders.map((order) => (
                 <article key={order.id} className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm">
                   <div className="flex items-start justify-between gap-2">
@@ -359,7 +359,7 @@ function OrdersDashboard() {
           <div className="mt-4 divide-y divide-slate-100">
             {soldOut.map((name) => (
               <div key={name} className="flex items-center gap-3 py-3">
-                <div className="grid h-10 w-10 place-items-center rounded-xl bg-orange-50 text-xl">🍟</div>
+                <img src="/bora-hero.png" alt="" className="h-10 w-10 rounded-xl bg-orange-50 object-cover" />
                 <div className="min-w-0 flex-1">
                   <div className="text-xs font-extrabold">{name}</div>
                   <div className="mt-1 text-[10px] text-slate-400">Indisponível para novos pedidos</div>

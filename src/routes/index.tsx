@@ -41,7 +41,7 @@ function PageContent() {
   return (
     <>
       <Header />
-      <main>
+      <main data-site-main>
         <Hero />
         <MenuSection />
         <About />

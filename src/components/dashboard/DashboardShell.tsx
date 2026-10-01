@@ -97,7 +97,7 @@ export function DashboardShell({ children, active, role, name, search }: Dashboa
     <>
       <DesktopOnlyNotice />
 
-      <div className="hidden min-h-screen bg-[#f5f7fb] text-slate-950 xl:block">
+      <div className="hidden min-h-screen bg-[#f4f6fa] text-slate-950 xl:block">
         <aside className="fixed inset-y-0 left-0 z-40 flex w-[248px] flex-col border-r border-slate-200/80 bg-white px-4 py-5">
           <Link to="/painel" className="mb-7 flex items-center gap-3 px-2">
             <div className="grid h-11 w-11 place-items-center rounded-2xl bg-orange-50">
@@ -224,7 +224,7 @@ export function DashboardShell({ children, active, role, name, search }: Dashboa
             </div>
           </header>
 
-          <main className="p-6 xl:p-8">{children}</main>
+          <main className="mx-auto w-full max-w-[1680px] p-6 2xl:p-8">{children}</main>
         </div>
       </div>
     </>
@@ -235,7 +235,7 @@ export function PanelCard({ children, className = "" }: { children: ReactNode; c
   return (
     <section
       className={
-        "rounded-2xl border border-slate-200/75 bg-white shadow-[0_16px_44px_-32px_rgba(15,23,42,0.32)] " +
+        "rounded-2xl border border-slate-200/75 bg-white shadow-[0_18px_48px_-36px_rgba(15,23,42,0.30)] " +
         className
       }
     >

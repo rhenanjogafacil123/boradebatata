@@ -55,7 +55,7 @@ export function Header() {
   useEffect(() => {
     const setMode = (mode: ViewMode) => {
       setViewMode(mode);
-      document.documentElement.dataset.viewMode = mode;
+      document.documentElement.dataset["viewMode"] = mode;
       setMenuOpen(false);
     };
 
@@ -84,7 +84,10 @@ export function Header() {
 
     initializeViewMode();
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      delete document.documentElement.dataset["viewMode"];
+    };
   }, []);
 
   const toggleViewMode = () => {
@@ -93,7 +96,7 @@ export function Header() {
 
     setViewMode(nextMode);
     setMenuOpen(false);
-    document.documentElement.dataset.viewMode = nextMode;
+    document.documentElement.dataset["viewMode"] = nextMode;
 
     try {
       window.sessionStorage.setItem("bora-view-mode", nextMode);

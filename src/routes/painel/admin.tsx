@@ -27,11 +27,11 @@ const recentOrders = [
 ];
 
 const products = [
-  ["Combo Batata Especial", "42 vendas", "R$ 734,40", "🥔"],
-  ["X-Bacon", "38 vendas", "R$ 646,20", "🍔"],
-  ["Batata Frita Grande", "36 vendas", "R$ 431,64", "🍟"],
-  ["Pastel Completo", "28 vendas", "R$ 503,20", "🥟"],
-  ["Refrigerante", "25 vendas", "R$ 249,75", "🥤"],
+  { name: "Carne moída com cheddar", sales: "42 vendas", value: "R$ 894,00", image: "/bora-hero.png" },
+  { name: "Strogonoff de frango", sales: "38 vendas", value: "R$ 786,50", image: "/bora-hero.png" },
+  { name: "Bacon com cheddar", sales: "34 vendas", value: "R$ 682,00", image: "/bora-hero.png" },
+  { name: "Pastel com tudo dentro", sales: "28 vendas", value: "R$ 699,72", image: "/bora-hero.png" },
+  { name: "Refrigerante lata", sales: "25 vendas", value: "R$ 170,00", image: "/bora-drink.svg" },
 ];
 
 const statuses = [
@@ -80,19 +80,19 @@ function AdminDashboard() {
           <h1 className="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Dashboard</h1>
           <p className="mt-2 text-sm text-slate-500">Acompanhe a operação da Bora de Batata em um só lugar.</p>
         </div>
-        <button type="button" className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm">
+        <button type="button" className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-extrabold text-slate-500 shadow-sm">
           Hoje
         </button>
       </div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-6 grid grid-cols-4 gap-4">
         <MetricCard icon={TrendingUp} label="Faturamento hoje" value="R$ 2.843,50" note="↑ 12% em relação a ontem" tone="bg-emerald-50 text-emerald-600" />
         <MetricCard icon={ShoppingCart} label="Pedidos hoje" value="68" note="↑ 18% em relação a ontem" tone="bg-blue-50 text-blue-600" />
         <MetricCard icon={ReceiptText} label="Ticket médio" value="R$ 41,81" note="↑ 6% em relação a ontem" tone="bg-violet-50 text-violet-600" />
         <MetricCard icon={Clock3} label="Pedidos em andamento" value="14" note="Em preparo e entrega" tone="bg-orange-50 text-orange-600" />
       </div>
 
-      <div className="mt-4 grid gap-4 xl:grid-cols-[1.55fr_.85fr]">
+      <div className="mt-4 grid grid-cols-[minmax(0,1.55fr)_minmax(310px,.85fr)] gap-4">
         <PanelCard className="p-5 sm:p-6">
           <div className="flex items-center justify-between gap-4">
             <div>
@@ -163,7 +163,7 @@ function AdminDashboard() {
         </PanelCard>
       </div>
 
-      <div className="mt-4 grid gap-4 xl:grid-cols-[1.15fr_.85fr_.7fr]">
+      <div className="mt-4 grid grid-cols-[minmax(0,1.2fr)_minmax(330px,.9fr)_minmax(260px,.7fr)] gap-4">
         <PanelCard className="overflow-hidden">
           <div className="flex items-center justify-between border-b border-slate-100 p-5">
             <div className="flex items-center gap-2"><PackageCheck className="h-5 w-5 text-orange-500" /><h2 className="font-extrabold">Pedidos recentes</h2></div>
@@ -197,15 +197,15 @@ function AdminDashboard() {
         <PanelCard className="p-5">
           <div className="flex items-center gap-2"><Banknote className="h-5 w-5 text-orange-500" /><h2 className="font-extrabold">Produtos mais vendidos</h2></div>
           <div className="mt-4 space-y-3">
-            {products.map(([name, sales, value, emoji], index) => (
-              <div key={name} className="flex items-center gap-3 rounded-xl p-2 hover:bg-slate-50">
+            {products.map((product, index) => (
+              <div key={product.name} className="flex items-center gap-3 rounded-xl p-2 transition hover:bg-slate-50">
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-amber-50 text-[11px] font-extrabold text-amber-600">{index + 1}</span>
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-slate-100 text-xl">{emoji}</span>
+                <img src={product.image} alt="" className="h-10 w-10 rounded-xl bg-orange-50 object-cover" />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-xs font-bold">{name}</div>
-                  <div className="mt-0.5 text-[10px] text-slate-400">{sales}</div>
+                  <div className="truncate text-xs font-bold">{product.name}</div>
+                  <div className="mt-0.5 text-[10px] text-slate-400">{product.sales}</div>
                 </div>
-                <div className="text-xs font-extrabold">{value}</div>
+                <div className="text-xs font-extrabold">{product.value}</div>
               </div>
             ))}
           </div>

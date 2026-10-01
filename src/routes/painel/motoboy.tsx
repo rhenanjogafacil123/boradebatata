@@ -29,13 +29,13 @@ type Delivery = {
   fee: string;
   payment: string;
   minutes: number;
-  emoji: string;
+  image: string;
 };
 
 const seedAvailable: Delivery[] = [
-  { id: 1048, store: "Bora de Batata", customer: "João Silva", address: "Rua das Flores, 123", distance: "2,1 km", fee: "R$ 8,50", payment: "Pix", minutes: 12, emoji: "🍔" },
-  { id: 1049, store: "Bora de Batata", customer: "Mariana Costa", address: "Av. Brasil, 456", distance: "3,4 km", fee: "R$ 7,00", payment: "Cartão", minutes: 15, emoji: "🍟" },
-  { id: 1050, store: "Bora de Batata", customer: "Carlos Ribeiro", address: "Rua Pioneiros, 789", distance: "2,8 km", fee: "R$ 6,00", payment: "Dinheiro", minutes: 10, emoji: "🥔" },
+  { id: 1048, store: "Bora de Batata", customer: "João Silva", address: "Rua das Flores, 123", distance: "2,1 km", fee: "R$ 8,50", payment: "Pix", minutes: 12, image: "/bora-hero.png" },
+  { id: 1049, store: "Bora de Batata", customer: "Mariana Costa", address: "Av. Brasil, 456", distance: "3,4 km", fee: "R$ 7,00", payment: "Cartão", minutes: 15, image: "/bora-hero.png" },
+  { id: 1050, store: "Bora de Batata", customer: "Carlos Ribeiro", address: "Rua Pioneiros, 789", distance: "2,8 km", fee: "R$ 6,00", payment: "Dinheiro", minutes: 10, image: "/bora-hero.png" },
 ];
 
 function MotoboyDashboard() {
@@ -57,8 +57,8 @@ function MotoboyDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#e9edf3] py-0 text-slate-950 sm:py-6">
-      <div className="mx-auto min-h-screen w-full max-w-[430px] overflow-hidden bg-[#f7f8fb] shadow-[0_24px_80px_-30px_rgba(15,23,42,.32)] sm:min-h-[calc(100vh-48px)] sm:rounded-[30px]">
+    <div className="min-h-screen bg-[#edf0f5] py-0 text-slate-950 sm:py-6">
+      <div className="mx-auto min-h-screen w-full max-w-[420px] overflow-hidden bg-[#f7f8fb] shadow-[0_24px_80px_-30px_rgba(15,23,42,.32)] sm:min-h-[calc(100vh-48px)] sm:rounded-[30px]">
         <div className="px-4 pb-4 pt-4">
           <div className="flex items-center">
             <Link to="/painel" className="flex items-center gap-2">
@@ -94,7 +94,7 @@ function MotoboyDashboard() {
 
           <div className="mt-6">
             <h1 className="text-[30px] font-extrabold tracking-[-0.035em]">Minhas Entregas</h1>
-            <div className="mt-1 flex items-center gap-2"><p className="text-xs leading-5 text-slate-500">Pedidos, rotas e ganhos em um só lugar.</p><span className="rounded-full bg-slate-100 px-2 py-1 text-[8px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Demo</span></div>
+            <p className="mt-1 text-xs leading-5 text-slate-500">Pedidos, rotas e ganhos em um só lugar.</p>
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-2.5">
@@ -133,7 +133,7 @@ function MotoboyDashboard() {
               <svg viewBox="0 0 280 160" className="absolute inset-0 h-full w-full">
                 <path d="M25 120 C75 35, 115 135, 165 88 S220 100, 260 45" fill="none" stroke="#3b82f6" strokeWidth="7" strokeLinecap="round" />
               </svg>
-              <div className="absolute left-4 top-22 grid h-8 w-8 place-items-center rounded-full bg-orange-500 text-sm text-white shadow">🍟</div>
+              <div className="absolute left-4 top-22 grid h-8 w-8 place-items-center overflow-hidden rounded-full border-2 border-white bg-orange-500 shadow"><img src="/bora-logo.svg" alt="" className="h-full w-full bg-white object-contain p-1" /></div>
               <div className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full bg-red-500 text-white shadow">
                 <House className="h-4 w-4" />
               </div>
@@ -165,7 +165,7 @@ function MotoboyDashboard() {
               {available.map((delivery) => (
                 <article key={delivery.id} className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm">
                   <div className="flex gap-3">
-                    <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-orange-50 text-2xl">{delivery.emoji}</div>
+                    <div className="h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-orange-50"><img src={delivery.image} alt="" className="h-full w-full object-cover" /></div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-extrabold">#{delivery.id}</span>
@@ -203,7 +203,7 @@ function MotoboyDashboard() {
               {active.map((delivery) => (
                 <article key={delivery.id} className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm">
                   <div className="flex gap-3">
-                    <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-blue-50 text-2xl">{delivery.emoji}</div>
+                    <div className="h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-blue-50"><img src={delivery.image} alt="" className="h-full w-full object-cover" /></div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-extrabold">#{delivery.id}</span>
