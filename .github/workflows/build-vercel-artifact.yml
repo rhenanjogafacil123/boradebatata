@@ -15,10 +15,10 @@ jobs:
       VERCEL: "1"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
@@ -26,15 +26,8 @@ jobs:
       - name: Build for Vercel
         run: bun run build
 
-      - name: Show Vercel output
-        run: |
-          echo "--- .vercel ---"
-          find .vercel -maxdepth 4 -type f 2>/dev/null | head -200 || true
-          echo "--- .output ---"
-          find .output -maxdepth 4 -type f 2>/dev/null | head -200 || true
-
       - name: Upload Vercel output
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: vercel-output
           path: .vercel/output/

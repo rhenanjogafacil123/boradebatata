@@ -4,7 +4,7 @@ import { Bike, ChefHat, LayoutDashboard, MoveRight, MonitorSmartphone } from "lu
 
 export const Route = createFileRoute("/painel/")({
   component: PanelEntry,
-  head: () => ({ meta: [{ title: "Painéis | Bora de Batata" }] }),
+  head: () => ({ meta: [{ title: "Painéis | Bora de Batata" }, { name: "robots", content: "noindex,nofollow" }] }),
 });
 
 const roles = [

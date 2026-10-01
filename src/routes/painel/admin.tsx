@@ -15,7 +15,7 @@ import { DashboardShell, PanelCard } from "@/components/dashboard/DashboardShell
 
 export const Route = createFileRoute("/painel/admin")({
   component: AdminDashboard,
-  head: () => ({ meta: [{ title: "Dashboard | Bora de Batata" }] }),
+  head: () => ({ meta: [{ title: "Dashboard | Bora de Batata" }, { name: "robots", content: "noindex,nofollow" }] }),
 });
 
 const recentOrders = [
@@ -76,7 +76,7 @@ function AdminDashboard() {
     <DashboardShell active="dashboard" role="Administrador" name="Rafael Lima">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-orange-500">Visão do negócio</p>
+          <div className="flex items-center gap-2"><p className="text-xs font-bold uppercase tracking-[0.16em] text-orange-500">Visão do negócio</p><span className="rounded-full bg-slate-100 px-2 py-1 text-[9px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Dados demonstrativos</span></div>
           <h1 className="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Dashboard</h1>
           <p className="mt-2 text-sm text-slate-500">Acompanhe a operação da Bora de Batata em um só lugar.</p>
         </div>

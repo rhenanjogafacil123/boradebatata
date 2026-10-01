@@ -1,5 +1,0 @@
-agent/.venv/
-agent/.remote-token
-__pycache__/
-*.pyc
-.vercel/

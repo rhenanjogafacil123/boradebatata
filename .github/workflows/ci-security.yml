@@ -17,7 +17,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     env:
       SUPABASE_PROJECT_ID: ci-placeholder
       SUPABASE_PUBLISHABLE_KEY: sb_publishable_ci_placeholder_not_a_secret
@@ -27,17 +27,28 @@ jobs:
       VITE_SUPABASE_URL: https://example.invalid
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # pinned v4
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # pinned v5
         with:
           persist-credentials: false
           fetch-depth: 1
+
       - name: Set up Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # pinned v2
+
       - name: Install dependencies exactly from lockfile
         run: bun install --frozen-lockfile
+
       - name: Scan tracked files for high-risk secrets
         run: node scripts/security-check.mjs
+
+      - name: Verify Bora business rules
+        run: node scripts/verify-bora.cjs
+
+      - name: TypeScript check
+        run: node node_modules/typescript/bin/tsc --noEmit
+
       - name: Production build
         run: bun run build
+
       - name: Audit high and critical dependency vulnerabilities
         run: bun audit --audit-level=high

@@ -19,11 +19,18 @@ import {
 } from "lucide-react";
 import { type ReactNode } from "react";
 
+type DashboardSearch = {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+};
+
 type DashboardShellProps = {
   children: ReactNode;
   active: "dashboard" | "pedidos" | "motoboy";
   role: "Administrador" | "Atendente";
   name: string;
+  search?: DashboardSearch;
 };
 
 type NavItem = {
@@ -65,14 +72,14 @@ const navGroups: { label: string; items: NavItem[] }[] = [
 
 function DesktopOnlyNotice() {
   return (
-    <div className="grid min-h-screen place-items-center bg-[#f5f7fb] px-5 lg:hidden">
+    <div className="grid min-h-screen place-items-center bg-[#f5f7fb] px-5 xl:hidden">
       <div className="max-w-sm rounded-3xl border border-slate-200 bg-white p-7 text-center shadow-[0_24px_80px_-50px_rgba(15,23,42,.55)]">
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-orange-50 text-orange-600">
           <Monitor className="h-7 w-7" />
         </div>
         <h1 className="mt-5 text-xl font-extrabold tracking-tight text-slate-950">Painel feito para computador</h1>
         <p className="mt-2 text-sm leading-6 text-slate-500">
-          A área administrativa e a central de pedidos foram organizadas em versão desktop para caber toda a operação com clareza.
+          A administração e a central de pedidos usam bastante informação ao mesmo tempo. Abra em uma tela desktop com pelo menos 1280px para manter tudo legível.
         </p>
         <Link
           to="/painel"
@@ -85,12 +92,12 @@ function DesktopOnlyNotice() {
   );
 }
 
-export function DashboardShell({ children, active, role, name }: DashboardShellProps) {
+export function DashboardShell({ children, active, role, name, search }: DashboardShellProps) {
   return (
     <>
       <DesktopOnlyNotice />
 
-      <div className="hidden min-h-screen min-w-[1180px] bg-[#f5f7fb] text-slate-950 lg:block">
+      <div className="hidden min-h-screen bg-[#f5f7fb] text-slate-950 xl:block">
         <aside className="fixed inset-y-0 left-0 z-40 flex w-[248px] flex-col border-r border-slate-200/80 bg-white px-4 py-5">
           <Link to="/painel" className="mb-7 flex items-center gap-3 px-2">
             <div className="grid h-11 w-11 place-items-center rounded-2xl bg-orange-50">
@@ -142,8 +149,9 @@ export function DashboardShell({ children, active, role, name }: DashboardShellP
                       <button
                         key={item.id}
                         type="button"
+                        disabled
+                        className={base + " cursor-not-allowed text-slate-400"}
                         title="Em construção"
-                        className={base + " cursor-default text-slate-400"}
                       >
                         <Icon className="h-[17px] w-[17px]" strokeWidth={2} />
                         <span className="flex-1">{item.label}</span>
@@ -170,14 +178,23 @@ export function DashboardShell({ children, active, role, name }: DashboardShellP
         <div className="pl-[248px]">
           <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/92 backdrop-blur-xl">
             <div className="flex h-[70px] items-center gap-4 px-6 xl:px-8">
-              <div className="relative max-w-[620px] flex-1">
-                <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                <input
-                  aria-label="Buscar"
-                  placeholder="Buscar pedidos, clientes, produtos..."
-                  className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50/70 pl-11 pr-4 text-sm outline-none transition focus:border-orange-300 focus:bg-white focus:ring-4 focus:ring-orange-100"
-                />
-              </div>
+              {search ? (
+                <div className="relative max-w-[620px] flex-1">
+                  <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                  <input
+                    aria-label="Buscar no painel"
+                    value={search.value}
+                    onChange={(event) => search.onChange(event.target.value)}
+                    placeholder={search.placeholder ?? "Buscar pedidos, clientes, produtos..."}
+                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50/70 pl-11 pr-4 text-sm outline-none transition focus:border-orange-300 focus:bg-white focus:ring-4 focus:ring-orange-100"
+                  />
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                  Operação interna • Bora de Batata
+                </div>
+              )}
 
               <div className="ml-auto flex items-center gap-3">
                 <button

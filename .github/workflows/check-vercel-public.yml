@@ -11,18 +11,17 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Inspect production URL
+      - name: Verify Bora de Batata production
         run: |
-          set -e
-          URL="https://in-brasa-clonado-do-torre-de-pizza-rhenanzinho09-4700.vercel.app"
-          echo "=== Initial response ==="
-          curl -sS -D /tmp/headers.txt -o /tmp/initial.html "$URL" || true
-          cat /tmp/headers.txt
-          echo "=== Follow redirects ==="
-          curl -L -sS -o /tmp/page.html -w 'HTTP=%{http_code}\nEFFECTIVE_URL=%{url_effective}\nCONTENT_TYPE=%{content_type}\n' "$URL"
-          echo "=== Page markers ==="
-          grep -o -E '<title>[^<]*</title>|Torre de Pizza|IN.?BRASA|Vercel|Log In|Sign Up|404|Not Found' /tmp/page.html | head -30 || true
-          echo "=== First 2000 bytes ==="
-          head -c 2000 /tmp/page.html
-          echo
+          set -euo pipefail
+          BASE="https://boradebatata.vercel.app"
+          for PATHNAME in "/" "/painel"; do
+            URL="$BASE$PATHNAME"
+            echo "Checking $URL"
+            HTTP="$(curl -L --retry 4 --retry-delay 3 --connect-timeout 10 -sS -o /tmp/page.html -w '%{http_code}' "$URL")"
+            test "$HTTP" = "200"
+            grep -Eqi 'Bora de Batata|Painéis|Cardápio' /tmp/page.html
+          done
+          echo "Public deployment is healthy."

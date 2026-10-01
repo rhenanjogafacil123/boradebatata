@@ -17,7 +17,7 @@ import { useState } from "react";
 
 export const Route = createFileRoute("/painel/motoboy")({
   component: MotoboyDashboard,
-  head: () => ({ meta: [{ title: "Minhas Entregas | Bora de Batata" }] }),
+  head: () => ({ meta: [{ title: "Minhas Entregas | Bora de Batata" }, { name: "robots", content: "noindex,nofollow" }] }),
 });
 
 type Delivery = {
@@ -94,7 +94,7 @@ function MotoboyDashboard() {
 
           <div className="mt-6">
             <h1 className="text-[30px] font-extrabold tracking-[-0.035em]">Minhas Entregas</h1>
-            <p className="mt-1 text-xs leading-5 text-slate-500">Pedidos, rotas e ganhos em um só lugar.</p>
+            <div className="mt-1 flex items-center gap-2"><p className="text-xs leading-5 text-slate-500">Pedidos, rotas e ganhos em um só lugar.</p><span className="rounded-full bg-slate-100 px-2 py-1 text-[8px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Demo</span></div>
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-2.5">
@@ -117,7 +117,7 @@ function MotoboyDashboard() {
           </div>
 
           <div className="mt-3 grid grid-cols-[1fr_1.08fr] gap-2.5">
-            <div className="rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm">
+            <div id="ganhos-motoboy" className="rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm">
               <div className="grid h-10 w-10 place-items-center rounded-xl bg-violet-50 text-violet-600">
                 <BarChart3 className="h-5 w-5" />
               </div>
@@ -137,8 +137,8 @@ function MotoboyDashboard() {
               <div className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full bg-red-500 text-white shadow">
                 <House className="h-4 w-4" />
               </div>
-              <button type="button" className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-full bg-white px-3 py-2 text-[10px] font-extrabold text-slate-700 shadow">
-                Mapa <ChevronRight className="h-3 w-3" />
+              <button type="button" onClick={() => setTab("active")} className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-full bg-white px-3 py-2 text-[10px] font-extrabold text-slate-700 shadow">
+                Minhas rotas <ChevronRight className="h-3 w-3" />
               </button>
             </div>
           </div>
@@ -216,9 +216,9 @@ function MotoboyDashboard() {
                   </div>
 
                   <div className="mt-3 grid grid-cols-2 gap-2">
-                    <button type="button" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-50 px-3 py-3 text-[11px] font-extrabold text-blue-600">
+                    <a href={"https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(delivery.address)} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-50 px-3 py-3 text-[11px] font-extrabold text-blue-600">
                       <Navigation className="h-4 w-4" /> Abrir rota
-                    </button>
+                    </a>
                     <button type="button" onClick={() => finish(delivery)} className="rounded-xl bg-emerald-500 px-3 py-3 text-[11px] font-extrabold text-white">
                       Marcar entregue
                     </button>
@@ -237,14 +237,14 @@ function MotoboyDashboard() {
         <nav className="sticky bottom-0 z-40 mt-2 border-t border-slate-200 bg-white/95 px-2 py-2 backdrop-blur-xl">
           <div className="grid grid-cols-4">
             {[
-              [House, "Início", false],
-              [Bike, "Entregas", true],
-              [BarChart3, "Ganhos", false],
-              [UserRound, "Perfil", false],
-            ].map(([Icon, label, activeItem]) => {
+              [House, "Início", () => window.scrollTo({ top: 0, behavior: "smooth" }), false],
+              [Bike, "Entregas", () => setTab("available"), true],
+              [BarChart3, "Ganhos", () => document.getElementById("ganhos-motoboy")?.scrollIntoView({ behavior: "smooth", block: "center" }), false],
+              [UserRound, "Perfil", () => window.scrollTo({ top: 0, behavior: "smooth" }), false],
+            ].map(([Icon, label, onClick, activeItem]) => {
               const NavIcon = Icon as typeof Bike;
               return (
-                <button key={String(label)} type="button" className={"flex flex-col items-center gap-1 rounded-xl py-2 text-[9px] font-extrabold " + (activeItem ? "bg-orange-50 text-orange-600" : "text-slate-500")}>
+                <button key={String(label)} type="button" onClick={onClick as () => void} className={"flex flex-col items-center gap-1 rounded-xl py-2 text-[9px] font-extrabold " + (activeItem ? "bg-orange-50 text-orange-600" : "text-slate-500")}>
                   <NavIcon className="h-5 w-5" />{String(label)}
                 </button>
               );

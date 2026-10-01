@@ -1,24 +1,41 @@
-# Hello Friend
+# Bora de Batata
 
-oi
+Site e painéis internos da Bora de Batata.
 
-This project was built with [Lovable](https://lovable.dev).
+## Estrutura
 
-## Build with Lovable
+- `/` — cardápio mobile-first, personalização de produtos, carrinho e fechamento do pedido pelo WhatsApp.
+- `/painel` — entrada da área interna.
+- `/painel/admin` — dashboard desktop da administração.
+- `/painel/pedidos` — central desktop da atendente.
+- `/painel/motoboy` — painel mobile do motoboy.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/30554240-e313-42a3-ab70-0466743d52e8).
+Os painéis ainda usam dados demonstrativos enquanto autenticação, permissões e persistência no banco não são conectadas. As rotas internas estão marcadas como `noindex`.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Desenvolvimento
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+O projeto usa Bun + TanStack Start + React + Tailwind.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+bun install --frozen-lockfile
+bun run build
 ```
+
+Verificações principais:
+
+```sh
+node scripts/verify-bora.cjs
+node node_modules/typescript/bin/tsc --noEmit
+bun audit --audit-level=high
+```
+
+## Deploy
+
+A branch `main` publica na Vercel. O endereço de produção usado nas verificações é:
+
+`https://boradebatata.vercel.app`
+
+## Segurança
+
+- Nunca commitar chaves ou arquivos `.env` reais.
+- O CI verifica segredos rastreados, build, TypeScript, regras do cardápio e dependências com vulnerabilidades altas/críticas.
