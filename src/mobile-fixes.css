@@ -16,7 +16,7 @@ html[data-view-mode="mobile"] body {
   min-width: 0;
 }
 
-html[data-view-mode="mobile"] main,
+html[data-view-mode="mobile"] main[data-site-main],
 html[data-view-mode="mobile"] #topo,
 html[data-view-mode="mobile"] #cardapio {
   width: 100%;
@@ -24,13 +24,13 @@ html[data-view-mode="mobile"] #cardapio {
 }
 
 @media (min-width: 641px) {
-  html[data-view-mode="mobile"] main,
+  html[data-view-mode="mobile"] main[data-site-main],
   html[data-view-mode="mobile"] footer {
     width: min(100%, var(--bora-mobile-shell));
     margin-inline: auto;
   }
 
-  html[data-view-mode="mobile"] header {
+  html[data-view-mode="mobile"] header[data-site-header] {
     left: 0 !important;
     right: 0 !important;
     width: min(100%, var(--bora-mobile-shell));
@@ -47,48 +47,48 @@ html[data-view-mode="mobile"] #cardapio {
 }
 
 /* Header: compact and readable in the mobile layout, even on desktop screens. */
-html[data-view-mode="mobile"] header > div:first-child {
+html[data-view-mode="mobile"] header[data-site-header] > div:first-child {
   gap: 0.4rem !important;
   padding: 0.55rem 0.75rem !important;
 }
 
-html[data-view-mode="mobile"] header a[href="#topo"] {
+html[data-view-mode="mobile"] header[data-site-header] a[href="#topo"] {
   gap: 0.55rem !important;
 }
 
-html[data-view-mode="mobile"] header a[href="#topo"] > span:first-child {
+html[data-view-mode="mobile"] header[data-site-header] a[href="#topo"] > span:first-child {
   width: 2.75rem !important;
   height: 2.75rem !important;
 }
 
-html[data-view-mode="mobile"] header a[href="#topo"] > span:nth-child(2) > span:first-child {
+html[data-view-mode="mobile"] header[data-site-header] a[href="#topo"] > span:nth-child(2) > span:first-child {
   max-width: 8.5rem;
   font-size: 0.85rem !important;
 }
 
-html[data-view-mode="mobile"] header a[href="#topo"] > span:nth-child(2) > span:nth-child(2) {
+html[data-view-mode="mobile"] header[data-site-header] a[href="#topo"] > span:nth-child(2) > span:nth-child(2) {
   display: none !important;
 }
 
-html[data-view-mode="mobile"] header button[title]:not([aria-label^="Mudar para versão"]) {
+html[data-view-mode="mobile"] header[data-site-header] button[title]:not([aria-label^="Mudar para versão"]) {
   width: 2.45rem !important;
   height: 2.45rem !important;
   justify-content: center;
   padding-inline: 0 !important;
 }
 
-html[data-view-mode="mobile"] header button[title]:not([aria-label^="Mudar para versão"]) > span {
+html[data-view-mode="mobile"] header[data-site-header] button[title]:not([aria-label^="Mudar para versão"]) > span {
   display: none;
 }
 
-html[data-view-mode="mobile"] header button[aria-label^="Mudar para versão"] {
+html[data-view-mode="mobile"] header[data-site-header] button[aria-label^="Mudar para versão"] {
   min-height: 2.45rem;
   padding-inline: 0.72rem !important;
 }
 
-html[data-view-mode="mobile"] header button[aria-label="Abrir carrinho"],
-html[data-view-mode="mobile"] header button[aria-label="Abrir menu"],
-html[data-view-mode="mobile"] header button[aria-label="Fechar menu"] {
+html[data-view-mode="mobile"] header[data-site-header] button[aria-label="Abrir carrinho"],
+html[data-view-mode="mobile"] header[data-site-header] button[aria-label="Abrir menu"],
+html[data-view-mode="mobile"] header[data-site-header] button[aria-label="Fechar menu"] {
   width: 2.45rem !important;
   height: 2.45rem !important;
 }
@@ -371,7 +371,7 @@ html[data-view-mode="mobile"] [data-mobile-cart-bar] button {
 }
 
 @media (max-width: 370px) {
-  html[data-view-mode="mobile"] header a[href="#topo"] > span:nth-child(2) {
+  html[data-view-mode="mobile"] header[data-site-header] a[href="#topo"] > span:nth-child(2) {
     display: none;
   }
 
