@@ -20,6 +20,7 @@ import { Route as PainelCategoriasRouteImport } from './routes/painel/categorias
 import { Route as PainelPromocoesRouteImport } from './routes/painel/promocoes'
 import { Route as PainelAtendentesRouteImport } from './routes/painel/atendentes'
 import { Route as PainelConfiguracoesRouteImport } from './routes/painel/configuracoes'
+import { Route as PainelLoginRouteImport } from './routes/painel/login'
 import { Route as PainelIndexRouteImport } from './routes/painel/index'
 
 const PainelRoute = PainelRouteImport.update({
@@ -94,6 +95,12 @@ const PainelConfiguracoesRoute = PainelConfiguracoesRouteImport.update({
   getParentRoute: () => PainelRoute,
 } as any)
 
+const PainelLoginRoute = PainelLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => PainelRoute,
+} as any)
+
 const PainelIndexRoute = PainelIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -113,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/painel/promocoes': typeof PainelPromocoesRoute
   '/painel/atendentes': typeof PainelAtendentesRoute
   '/painel/configuracoes': typeof PainelConfiguracoesRoute
+  '/painel/login': typeof PainelLoginRoute
   '/painel/': typeof PainelIndexRoute
 }
 
@@ -128,6 +136,7 @@ export interface FileRoutesByTo {
   '/painel/promocoes': typeof PainelPromocoesRoute
   '/painel/atendentes': typeof PainelAtendentesRoute
   '/painel/configuracoes': typeof PainelConfiguracoesRoute
+  '/painel/login': typeof PainelLoginRoute
   '/painel': typeof PainelIndexRoute
 }
 
@@ -145,15 +154,16 @@ export interface FileRoutesById {
   '/painel/promocoes': typeof PainelPromocoesRoute
   '/painel/atendentes': typeof PainelAtendentesRoute
   '/painel/configuracoes': typeof PainelConfiguracoesRoute
+  '/painel/login': typeof PainelLoginRoute
   '/painel/': typeof PainelIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/painel' | '/painel/admin' | '/painel/motoboy' | '/painel/pedidos' | '/painel/produtos' | '/painel/financeiro' | '/painel/relatorios' | '/painel/categorias' | '/painel/promocoes' | '/painel/atendentes' | '/painel/configuracoes' | '/painel/'
+  fullPaths: '/' | '/painel' | '/painel/admin' | '/painel/motoboy' | '/painel/pedidos' | '/painel/produtos' | '/painel/financeiro' | '/painel/relatorios' | '/painel/categorias' | '/painel/promocoes' | '/painel/atendentes' | '/painel/configuracoes' | '/painel/login' | '/painel/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/painel' | '/painel/admin' | '/painel/motoboy' | '/painel/pedidos' | '/painel/produtos' | '/painel/financeiro' | '/painel/relatorios' | '/painel/categorias' | '/painel/promocoes' | '/painel/atendentes' | '/painel/configuracoes'
-  id: '__root__' | '/' | '/painel' | '/painel/admin' | '/painel/motoboy' | '/painel/pedidos' | '/painel/produtos' | '/painel/financeiro' | '/painel/relatorios' | '/painel/categorias' | '/painel/promocoes' | '/painel/atendentes' | '/painel/configuracoes' | '/painel/'
+  to: '/' | '/painel' | '/painel/admin' | '/painel/motoboy' | '/painel/pedidos' | '/painel/produtos' | '/painel/financeiro' | '/painel/relatorios' | '/painel/categorias' | '/painel/promocoes' | '/painel/atendentes' | '/painel/configuracoes' | '/painel/login'
+  id: '__root__' | '/' | '/painel' | '/painel/admin' | '/painel/motoboy' | '/painel/pedidos' | '/painel/produtos' | '/painel/financeiro' | '/painel/relatorios' | '/painel/categorias' | '/painel/promocoes' | '/painel/atendentes' | '/painel/configuracoes' | '/painel/login' | '/painel/'
   fileRoutesById: FileRoutesById
 }
 
@@ -169,6 +179,7 @@ export interface PainelRouteChildren {
   PainelPromocoesRoute: typeof PainelPromocoesRoute
   PainelAtendentesRoute: typeof PainelAtendentesRoute
   PainelConfiguracoesRoute: typeof PainelConfiguracoesRoute
+  PainelLoginRoute: typeof PainelLoginRoute
 }
 
 const PainelRouteChildren: PainelRouteChildren = {
@@ -183,6 +194,7 @@ const PainelRouteChildren: PainelRouteChildren = {
   PainelPromocoesRoute,
   PainelAtendentesRoute,
   PainelConfiguracoesRoute,
+  PainelLoginRoute,
 }
 
 const PainelRouteWithChildren = PainelRoute._addFileChildren(PainelRouteChildren)
@@ -276,6 +288,13 @@ declare module '@tanstack/react-router' {
       path: '/configuracoes'
       fullPath: '/painel/configuracoes'
       preLoaderRoute: typeof PainelConfiguracoesRouteImport
+      parentRoute: typeof PainelRoute
+    }
+    '/painel/login': {
+      id: '/painel/login'
+      path: '/login'
+      fullPath: '/painel/login'
+      preLoaderRoute: typeof PainelLoginRouteImport
       parentRoute: typeof PainelRoute
     }
     '/painel/': {

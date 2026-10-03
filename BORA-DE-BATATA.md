@@ -40,3 +40,19 @@ O projeto está conectado à Vercel e a branch `main` dispara o deploy de produ�
 - `public/bora-logo.svg`
 - `public/bora-drink.svg`
 - `public/favicon.ico`
+
+
+## Banco e autenticação
+
+A migração \`20261003202000_dashboard_core.sql\` prepara as tabelas operacionais do painel,
+perfis por função (\`admin\`, \`attendant\`, \`courier\`) e políticas RLS.
+
+O login está disponível em \`/painel/login\`, mas a proteção permanece desligada por padrão.
+Só defina \`VITE_PANEL_AUTH_ENABLED=true\` depois de:
+
+1. aplicar a migração no projeto Supabase;
+2. criar o primeiro usuário no Supabase Auth;
+3. alterar o perfil desse usuário para \`role = 'admin'\`;
+4. configurar as variáveis Supabase no ambiente de produção.
+
+Enquanto a flag estiver \`false\`, os painéis continuam no modo demonstrativo atual.
