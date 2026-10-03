@@ -420,7 +420,7 @@ function MotoboyDashboard() {
           {active[0] && (
             <button
               type="button"
-              onClick={() => { setTab("active"); setSelectedId(active[0].id); }}
+              onClick={() => { setTab("active"); setSelectedId(active[0]?.id ?? null); }}
               className="mt-3 flex w-full items-center gap-3 rounded-2xl border border-blue-100 bg-blue-50 p-3 text-left"
             >
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-blue-500 text-white">
