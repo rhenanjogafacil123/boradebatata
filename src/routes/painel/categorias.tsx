@@ -65,6 +65,7 @@ function CategoriesDashboard() {
       if (index < 0 || target < 0 || target >= ordered.length) return current;
       const a = ordered[index];
       const b = ordered[target];
+      if (!a || !b) return current;
       return current.map((item) => {
         if (item.id === a.id) return { ...item, order: b.order };
         if (item.id === b.id) return { ...item, order: a.order };
