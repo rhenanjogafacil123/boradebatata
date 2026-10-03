@@ -27,7 +27,7 @@ type DashboardSearch = {
 
 type DashboardShellProps = {
   children: ReactNode;
-  active: "dashboard" | "pedidos" | "motoboy" | "produtos" | "financeiro" | "relatorios";
+  active: "dashboard" | "pedidos" | "motoboy" | "produtos" | "categorias" | "promocoes" | "atendentes" | "financeiro" | "relatorios" | "configuracoes";
   role: "Administrador" | "Atendente";
   name: string;
   search?: DashboardSearch;
@@ -37,7 +37,7 @@ type NavItem = {
   id: string;
   label: string;
   icon: LucideIcon;
-  to?: "/painel/admin" | "/painel/pedidos" | "/painel/motoboy" | "/painel/produtos" | "/painel/financeiro" | "/painel/relatorios";
+  to?: "/painel/admin" | "/painel/pedidos" | "/painel/motoboy" | "/painel/produtos" | "/painel/categorias" | "/painel/promocoes" | "/painel/atendentes" | "/painel/financeiro" | "/painel/relatorios" | "/painel/configuracoes";
   badge?: string;
   muted?: boolean;
 };
@@ -54,10 +54,10 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     label: "Operação",
     items: [
       { id: "produtos", label: "Produtos", icon: Package, to: "/painel/produtos" },
-      { id: "categorias", label: "Categorias", icon: Boxes, muted: true },
-      { id: "promocoes", label: "Promoções", icon: Tag, muted: true },
+      { id: "categorias", label: "Categorias", icon: Boxes, to: "/painel/categorias" },
+      { id: "promocoes", label: "Promoções", icon: Tag, to: "/painel/promocoes" },
       { id: "motoboy", label: "Motoboys", icon: Bike, to: "/painel/motoboy" },
-      { id: "atendentes", label: "Atendentes", icon: Users, muted: true },
+      { id: "atendentes", label: "Atendentes", icon: Users, to: "/painel/atendentes" },
     ],
   },
   {
@@ -65,7 +65,7 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     items: [
       { id: "financeiro", label: "Financeiro", icon: CircleDollarSign, to: "/painel/financeiro" },
       { id: "relatorios", label: "Relatórios", icon: ChartNoAxesCombined, to: "/painel/relatorios" },
-      { id: "configuracoes", label: "Configurações", icon: Settings, muted: true },
+      { id: "configuracoes", label: "Configurações", icon: Settings, to: "/painel/configuracoes" },
     ],
   },
 ];
