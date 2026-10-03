@@ -27,7 +27,7 @@ type DashboardSearch = {
 
 type DashboardShellProps = {
   children: ReactNode;
-  active: "dashboard" | "pedidos" | "motoboy";
+  active: "dashboard" | "pedidos" | "motoboy" | "produtos" | "financeiro" | "relatorios";
   role: "Administrador" | "Atendente";
   name: string;
   search?: DashboardSearch;
@@ -37,7 +37,7 @@ type NavItem = {
   id: string;
   label: string;
   icon: LucideIcon;
-  to?: "/painel/admin" | "/painel/pedidos" | "/painel/motoboy";
+  to?: "/painel/admin" | "/painel/pedidos" | "/painel/motoboy" | "/painel/produtos" | "/painel/financeiro" | "/painel/relatorios";
   badge?: string;
   muted?: boolean;
 };
@@ -53,7 +53,7 @@ const navGroups: { label: string; items: NavItem[] }[] = [
   {
     label: "Operação",
     items: [
-      { id: "produtos", label: "Produtos", icon: Package, muted: true },
+      { id: "produtos", label: "Produtos", icon: Package, to: "/painel/produtos" },
       { id: "categorias", label: "Categorias", icon: Boxes, muted: true },
       { id: "promocoes", label: "Promoções", icon: Tag, muted: true },
       { id: "motoboy", label: "Motoboys", icon: Bike, to: "/painel/motoboy" },
@@ -63,8 +63,8 @@ const navGroups: { label: string; items: NavItem[] }[] = [
   {
     label: "Gestão",
     items: [
-      { id: "financeiro", label: "Financeiro", icon: CircleDollarSign, muted: true },
-      { id: "relatorios", label: "Relatórios", icon: ChartNoAxesCombined, muted: true },
+      { id: "financeiro", label: "Financeiro", icon: CircleDollarSign, to: "/painel/financeiro" },
+      { id: "relatorios", label: "Relatórios", icon: ChartNoAxesCombined, to: "/painel/relatorios" },
       { id: "configuracoes", label: "Configurações", icon: Settings, muted: true },
     ],
   },
