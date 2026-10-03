@@ -6,6 +6,7 @@ import {
   Boxes,
   ChartNoAxesCombined,
   ChevronRight,
+  ContactRound,
   CircleDollarSign,
   ClipboardList,
   LayoutDashboard,
@@ -17,7 +18,7 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 type DashboardSearch = {
   value: string;
@@ -27,7 +28,7 @@ type DashboardSearch = {
 
 type DashboardShellProps = {
   children: ReactNode;
-  active: "dashboard" | "pedidos" | "motoboy" | "produtos" | "categorias" | "promocoes" | "atendentes" | "financeiro" | "relatorios" | "configuracoes";
+  active: "dashboard" | "pedidos" | "motoboy" | "produtos" | "categorias" | "promocoes" | "clientes" | "atendentes" | "financeiro" | "relatorios" | "configuracoes";
   role: "Administrador" | "Atendente";
   name: string;
   search?: DashboardSearch;
@@ -37,7 +38,7 @@ type NavItem = {
   id: string;
   label: string;
   icon: LucideIcon;
-  to?: "/painel/admin" | "/painel/pedidos" | "/painel/motoboy" | "/painel/produtos" | "/painel/categorias" | "/painel/promocoes" | "/painel/atendentes" | "/painel/financeiro" | "/painel/relatorios" | "/painel/configuracoes";
+  to?: "/painel/admin" | "/painel/pedidos" | "/painel/motoboy" | "/painel/produtos" | "/painel/categorias" | "/painel/promocoes" | "/painel/clientes" | "/painel/atendentes" | "/painel/financeiro" | "/painel/relatorios" | "/painel/configuracoes";
   badge?: string;
   muted?: boolean;
 };
@@ -57,6 +58,7 @@ const navGroups: { label: string; items: NavItem[] }[] = [
       { id: "categorias", label: "Categorias", icon: Boxes, to: "/painel/categorias" },
       { id: "promocoes", label: "Promoções", icon: Tag, to: "/painel/promocoes" },
       { id: "motoboy", label: "Motoboys", icon: Bike, to: "/painel/motoboy" },
+      { id: "clientes", label: "Clientes", icon: ContactRound, to: "/painel/clientes" },
       { id: "atendentes", label: "Atendentes", icon: Users, to: "/painel/atendentes" },
     ],
   },
@@ -93,6 +95,8 @@ function DesktopOnlyNotice() {
 }
 
 export function DashboardShell({ children, active, role, name, search }: DashboardShellProps) {
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+
   return (
     <>
       <DesktopOnlyNotice />
@@ -197,16 +201,59 @@ export function DashboardShell({ children, active, role, name, search }: Dashboa
               )}
 
               <div className="ml-auto flex items-center gap-3">
-                <button
-                  type="button"
-                  className="relative rounded-xl border border-transparent p-2.5 text-slate-500 transition hover:border-slate-200 hover:bg-slate-50"
-                  aria-label="Notificações"
-                >
-                  <Bell className="h-5 w-5" />
-                  <span className="absolute right-1 top-1 grid h-4 min-w-4 place-items-center rounded-full bg-red-500 px-1 text-[9px] font-extrabold text-white">
-                    3
-                  </span>
-                </button>
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setNotificationsOpen((value) => !value)}
+                    className="relative rounded-xl border border-transparent p-2.5 text-slate-500 transition hover:border-slate-200 hover:bg-slate-50"
+                    aria-label="Notificações"
+                    aria-expanded={notificationsOpen}
+                  >
+                    <Bell className="h-5 w-5" />
+                    <span className="absolute right-1 top-1 grid h-4 min-w-4 place-items-center rounded-full bg-red-500 px-1 text-[9px] font-extrabold text-white">
+                      3
+                    </span>
+                  </button>
+
+                  {notificationsOpen && (
+                    <div className="absolute right-0 top-13 z-50 w-[330px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
+                      <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
+                        <div>
+                          <div className="text-xs font-extrabold text-slate-900">Notificações</div>
+                          <div className="mt-0.5 text-[10px] text-slate-400">3 itens precisam de atenção</div>
+                        </div>
+                        <span className="rounded-full bg-orange-50 px-2 py-1 text-[9px] font-extrabold text-orange-600">Agora</span>
+                      </div>
+                      <div className="divide-y divide-slate-100">
+                        {[
+                          ["Pedido #1053", "Novo pedido recebido há 1 minuto.", "bg-emerald-500"],
+                          ["Produto pausado", "Guaracamp está marcado como indisponível.", "bg-amber-400"],
+                          ["Entrega atrasada", "Pedido #1043 está em rota há 28 minutos.", "bg-red-500"],
+                        ].map(([title, description, tone]) => (
+                          <button
+                            key={title}
+                            type="button"
+                            onClick={() => setNotificationsOpen(false)}
+                            className="flex w-full gap-3 px-4 py-3 text-left transition hover:bg-slate-50"
+                          >
+                            <span className={"mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full " + tone} />
+                            <span>
+                              <span className="block text-xs font-extrabold text-slate-800">{title}</span>
+                              <span className="mt-1 block text-[10px] leading-4 text-slate-400">{description}</span>
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                      <Link
+                        to="/painel/pedidos"
+                        onClick={() => setNotificationsOpen(false)}
+                        className="flex items-center justify-center border-t border-slate-100 px-4 py-3 text-[10px] font-extrabold text-orange-600"
+                      >
+                        Abrir central de pedidos
+                      </Link>
+                    </div>
+                  )}
+                </div>
                 <div className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-2.5 py-2 shadow-sm">
                   <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-orange-400 to-amber-300 text-xs font-extrabold text-white">
                     {name

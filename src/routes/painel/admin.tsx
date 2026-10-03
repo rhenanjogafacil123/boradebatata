@@ -1,5 +1,5 @@
 
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowUpRight,
   Banknote,
@@ -10,6 +10,9 @@ import {
   ShoppingCart,
   TrendingUp,
   WalletCards,
+  UsersRound,
+  Tag,
+  PackagePlus,
 } from "lucide-react";
 import { DashboardShell, PanelCard } from "@/components/dashboard/DashboardShell";
 
@@ -85,7 +88,29 @@ function AdminDashboard() {
         </button>
       </div>
 
-      <div className="mt-6 grid grid-cols-4 gap-4">
+      <div className="mt-5 grid grid-cols-4 gap-3">
+        {[
+          ["/painel/pedidos", ShoppingCart, "Novo pedido", "Abrir central"],
+          ["/painel/produtos", PackagePlus, "Produtos", "Editar cardápio"],
+          ["/painel/promocoes", Tag, "Promoções", "Criar campanha"],
+          ["/painel/clientes", UsersRound, "Clientes", "Ver recorrência"],
+        ].map(([to, Icon, label, note]) => {
+          const QuickIcon = Icon as typeof ShoppingCart;
+          return (
+            <Link
+              key={String(label)}
+              to={to as "/painel/pedidos" | "/painel/produtos" | "/painel/promocoes" | "/painel/clientes"}
+              className="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm transition hover:-translate-y-0.5 hover:border-orange-200"
+            >
+              <div className="grid h-10 w-10 place-items-center rounded-xl bg-orange-50 text-orange-600"><QuickIcon className="h-4.5 w-4.5" /></div>
+              <div className="min-w-0"><div className="text-xs font-extrabold text-slate-900">{String(label)}</div><div className="mt-0.5 text-[10px] font-semibold text-slate-400">{String(note)}</div></div>
+              <ArrowUpRight className="ml-auto h-4 w-4 text-slate-300 transition group-hover:text-orange-500" />
+            </Link>
+          );
+        })}
+      </div>
+
+      <div className="mt-4 grid grid-cols-4 gap-4">
         <MetricCard icon={TrendingUp} label="Faturamento hoje" value="R$ 2.843,50" note="↑ 12% em relação a ontem" tone="bg-emerald-50 text-emerald-600" />
         <MetricCard icon={ShoppingCart} label="Pedidos hoje" value="68" note="↑ 18% em relação a ontem" tone="bg-blue-50 text-blue-600" />
         <MetricCard icon={ReceiptText} label="Ticket médio" value="R$ 41,81" note="↑ 6% em relação a ontem" tone="bg-violet-50 text-violet-600" />
@@ -167,7 +192,7 @@ function AdminDashboard() {
         <PanelCard className="overflow-hidden">
           <div className="flex items-center justify-between border-b border-slate-100 p-5">
             <div className="flex items-center gap-2"><PackageCheck className="h-5 w-5 text-orange-500" /><h2 className="font-extrabold">Pedidos recentes</h2></div>
-            <button type="button" className="text-xs font-bold text-orange-600">Ver todos →</button>
+            <Link to="/painel/pedidos" className="text-xs font-bold text-orange-600">Ver todos →</Link>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[560px] text-left text-xs">
@@ -227,9 +252,9 @@ function AdminDashboard() {
               </div>
             ))}
           </div>
-          <button type="button" className="mt-6 flex items-center gap-2 text-xs font-bold text-orange-600">
+          <Link to="/painel/relatorios" className="mt-6 flex items-center gap-2 text-xs font-bold text-orange-600">
             Relatório completo <ArrowUpRight className="h-3.5 w-3.5" />
-          </button>
+          </Link>
         </PanelCard>
       </div>
     </DashboardShell>
